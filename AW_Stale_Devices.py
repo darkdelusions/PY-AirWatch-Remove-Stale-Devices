@@ -1,3 +1,5 @@
+
+
 import requests, os, configparser, csv, sys, json
 from datetime import datetime, timedelta
 
@@ -35,13 +37,14 @@ else:
     sys.exit("No Server is defined in the config file")
 
 
+
 def find_offline():
     #Sets the number of days offline from config file
     days_offline = int(config['general']['days_offline'])
     #Tests to ensure days offline is set
     if days_offline:
         #Subtracts X days from Today to determine the date airwatch should pull from
-        unformatted_date = datetime.today() - timedelta(days=70)
+        unformatted_date = datetime.today() - timedelta(days=days_offline)
         #Converts Date and Time format to MM/DD/YYYY
         offline_since = unformatted_date.strftime("%m" + "/" + "%d" + "/" + "%Y")
         #Sets Up Query
@@ -62,7 +65,7 @@ def find_offline():
 
 def delete_devices():
     formatted_url = url + "/API/mdm/devices"
-    input = find_offline()
+    devices = find_offline()
     #response = requests.post(formatted_url, headers=headers, json=input)
     print(input)
     sys.exit('Device deletion completed.')
