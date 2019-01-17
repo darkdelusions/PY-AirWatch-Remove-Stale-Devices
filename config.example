@@ -1,0 +1,22 @@
+[general]
+default_instance = prod
+days_offline = 80
+max_number_devices_warning = 25
+script_mode = manual
+
+[instance]
+prod =
+qat =
+test =
+
+[prod]
+aw-tenant-code =
+authorization =
+
+[qat]
+aw-tenant-code =
+authorization =
+
+[test]
+aw-tenant-code =
+authorization =
