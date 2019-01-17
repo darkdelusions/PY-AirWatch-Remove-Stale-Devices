@@ -1,3 +1,5 @@
 *.ini
 *.txt
 *.csv
+*.bak
+*.reg
