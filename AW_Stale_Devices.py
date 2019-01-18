@@ -103,6 +103,7 @@ def write_csv(payload):
 
 def find_offline():
     offline_since = days_offline()
+    dayz_offline = int(config['general']['days_offline'])
     endpoint_url = url + "/API/mdm/devices/search"
     #Sets the Query Paramters
     query_string = {"lastseen":offline_since}
@@ -114,7 +115,7 @@ def find_offline():
         output = {"BulkValues":{"Value":[item['SerialNumber'] for item in response['Devices']]}}
         return(output)
     except json.decoder.JSONDecodeError:
-        sys.exit("No devices found offline for " + str(days_offline) + "+ days")
+        sys.exit("No devices found offline for " + str(dayz_offline) + "+ days")
 
 
 
