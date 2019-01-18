@@ -38,7 +38,6 @@ else:
 
 def main():
     payload = find_offline()
-    print(payload['BulkValues']['Value'])
     script_mode = config['general']['script_mode']
     count = len(payload['BulkValues']['Value'])
     max_number = config['general']['max_number_devices_warning']
