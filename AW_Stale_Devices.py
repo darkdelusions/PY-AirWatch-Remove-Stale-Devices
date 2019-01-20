@@ -109,13 +109,13 @@ def find_offline():
     query_string = {"lastseen":offline_since}
     #API Call
     try:
-        print("Connecting to: " + url)
-        print("Looking for Devices that have been offline since " + offline_since)
+        print(f"Connecting to: {url}")
+        print(f"Looking for Devices that have been offline since {offline_since}")
         response = requests.get(endpoint_url, headers=headers, params=query_string).json()
         output = {"BulkValues":{"Value":[item['SerialNumber'] for item in response['Devices']]}}
         return(output)
     except json.decoder.JSONDecodeError:
-        sys.exit("No devices found offline for " + str(dayz_offline) + "+ days")
+        sys.exit(f"No devices found offline for {str(dayz_offline)}+ days")
 
 
 
