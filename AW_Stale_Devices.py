@@ -41,36 +41,36 @@ def main():
     script_mode = config['general']['script_mode']
     count = len(payload['BulkValues']['Value'])
     max_number = config['general']['max_number_devices_warning']
-    if count != 0:
-        if count < int(max_number):
-            if script_mode == "auto":
-                print("Script Running in Auto Mode")
-                print("If you would like to change this please change the script_mode to manual in the config.ini")
-                print("Deleting" + str(count) + "devices")
-                write_csv(payload)
-                json_payload = json.dumps(payload)
-                delete_devices(json_payload)
-            elif script_mode == "manual":
-                user_input = ''
-                while user_input != 'n':
-                    print(f"You are about to delete {str(count)} devices")
-                    print("You can verify the devices you are about to delete in the offlinedevice.csv")
-                    user_input = input("Do you want to continue? [y/n]: ")
-                    if user_input == "y":
-                        print("Starting Devices Deletions")
-                        write_csv(payload)
-                        json_payload = json.dumps(payload)
-                        delete_devices(json_payload)
-                    elif user_input == "n":
-                        sys.exit("Script Aborted")
-                    else:
-                        print("")
-                        print("Invaild selection please use [y/n].")
-                        print("")
-            else:
-                sys.exit("Please Set the script_mode in the config.ini")
+    if count > 0:
+        if script_mode == "auto":
+            print("Script Running in Auto Mode")
+            print("If you would like to change this please change the script_mode to manual in the config.ini")
+            print("Deleting" + str(count) + "devices")
+            write_csv(payload)
+            json_payload = json.dumps(payload)
+            print("test")
+            delete_devices(json_payload)
+        elif script_mode == "manual":
+            user_input = ''
+            while user_input != 'n':
+                print(f"You are about to delete {str(count)} devices")
+                print("You can verify the devices you are about to delete in the offlinedevice.csv")
+                user_input = input("Do you want to continue? [y/n]: ")
+                if user_input == "y":
+                    print("Starting Devices Deletions")
+                    write_csv(payload)
+                    json_payload = json.dumps(payload)
+                    delete_devices(json_payload)
+                elif user_input == "n":
+                    sys.exit("Script Aborted")
+                else:
+                    print("")
+                    print("Invaild selection please use [y/n].")
+                    print("")
         else:
-            sys.exit("There is nothing to Delete")
+            sys.exit("Please Set the script_mode in the config.ini")
+    else:
+        sys.exit("There is nothing to Delete")
 
 def days_offline():
     #Sets the number of days offline from config file
@@ -114,6 +114,7 @@ def find_offline():
         response = requests.get(endpoint_url, headers=headers, params=query_string).json()
         output = {"BulkValues":{"Value":[item['SerialNumber'] for item in response['Devices']]}}
         return(output)
+        print(output)
     except json.decoder.JSONDecodeError:
         sys.exit(f"No devices found offline for {str(dayz_offline)}+ days")
 
