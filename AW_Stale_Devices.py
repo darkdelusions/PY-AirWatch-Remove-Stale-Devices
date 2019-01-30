@@ -113,7 +113,6 @@ def find_offline():
         response = requests.get(endpoint_url, headers=headers, params=query_string).json()
         output = {"BulkValues":{"Value":[item['SerialNumber'] for item in response['Devices']]}}
         return(output)
-        print(output)
     except json.decoder.JSONDecodeError:
         sys.exit(f"No devices found offline for {str(dayz_offline)}+ days")
 
