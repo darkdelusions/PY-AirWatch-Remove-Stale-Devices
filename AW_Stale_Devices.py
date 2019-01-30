@@ -54,7 +54,6 @@ def main():
             user_input = ''
             while user_input != 'n':
                 print(f"You are about to delete {str(count)} devices")
-                print("You can verify the devices you are about to delete in the offlinedevice.csv")
                 user_input = input("Do you want to continue? [y/n]: ")
                 if user_input == "y":
                     print("Starting Devices Deletions")
